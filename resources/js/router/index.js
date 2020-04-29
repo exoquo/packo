@@ -12,17 +12,6 @@ Vue.use(Router);
 /* Layout */
 import Layout from '@/layout';
 
-/* Router for modules */
-import elementUiRoutes from './modules/element-ui';
-import componentRoutes from './modules/components';
-import chartsRoutes from './modules/charts';
-import tableRoutes from './modules/table';
-import adminRoutes from './modules/admin';
-import nestedRoutes from './modules/nested';
-import errorRoutes from './modules/error';
-import excelRoutes from './modules/excel';
-import permissionRoutes from './modules/permission';
-
 /**
  * Sub-menu only appear when children.length>=1
  * @see https://doc.laravue.dev/guide/essentials/router-and-nav.html
@@ -93,22 +82,10 @@ export const constantRoutes = [
     ],
   },
   {
-    path: '/documentation',
-    component: Layout,
-    redirect: '/documentation/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/documentation/index'),
-        name: 'Documentation',
-        meta: { title: 'documentation', icon: 'documentation', noCache: true },
-      },
-    ],
-  },
-  {
     path: '/profile',
     component: Layout,
     redirect: '/profile/edit',
+    hidden: true,
     children: [
       {
         path: 'edit',
@@ -118,115 +95,9 @@ export const constantRoutes = [
       },
     ],
   },
-  {
-    path: '/guide',
-    component: Layout,
-    redirect: '/guide/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/guide/index'),
-        name: 'Guide',
-        meta: { title: 'guide', icon: 'guide', noCache: true },
-      },
-    ],
-  },
-  elementUiRoutes,
 ];
 
 export const asyncRoutes = [
-  permissionRoutes,
-  componentRoutes,
-  chartsRoutes,
-  nestedRoutes,
-  tableRoutes,
-  adminRoutes,
-  {
-    path: '/theme',
-    component: Layout,
-    redirect: 'noredirect',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/theme/index'),
-        name: 'Theme',
-        meta: { title: 'theme', icon: 'theme' },
-      },
-    ],
-  },
-  {
-    path: '/clipboard',
-    component: Layout,
-    redirect: 'noredirect',
-    meta: { permissions: ['view menu clipboard'] },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/clipboard/index'),
-        name: 'ClipboardDemo',
-        meta: { title: 'clipboardDemo', icon: 'clipboard', roles: ['admin', 'manager', 'editor', 'user'] },
-      },
-    ],
-  },
-  errorRoutes,
-  excelRoutes,
-  {
-    path: '/zip',
-    component: Layout,
-    redirect: '/zip/download',
-    alwaysShow: true,
-    meta: { title: 'zip', icon: 'zip', permissions: ['view menu zip'] },
-    children: [
-      {
-        path: 'download',
-        component: () => import('@/views/zip'),
-        name: 'ExportZip',
-        meta: { title: 'exportZip' },
-      },
-    ],
-  },
-  {
-    path: '/pdf',
-    component: Layout,
-    redirect: '/pdf/index',
-    meta: { title: 'pdf', icon: 'pdf', permissions: ['view menu pdf'] },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/pdf'),
-        name: 'Pdf',
-        meta: { title: 'pdf' },
-      },
-    ],
-  },
-  {
-    path: '/pdf/download',
-    component: () => import('@/views/pdf/Download'),
-    hidden: true,
-  },
-  {
-    path: '/i18n',
-    component: Layout,
-    meta: { permissions: ['view menu i18n'] },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/i18n'),
-        name: 'I18n',
-        meta: { title: 'i18n', icon: 'international' },
-      },
-    ],
-  },
-  {
-    path: '/external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://github.com/tuandm/laravue',
-        meta: { title: 'externalLink', icon: 'link' },
-      },
-    ],
-  },
   { path: '*', redirect: '/404', hidden: true },
 ];
 

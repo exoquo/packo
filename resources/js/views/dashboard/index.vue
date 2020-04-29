@@ -1,31 +1,47 @@
 <template>
-  <div class="dashboard-container">
-    <component :is="currentRole" />
+  <div class="dashboard-editor-container">
+    <el-row :gutter="32">
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          Test
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          Test
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          Test
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import adminDashboard from './admin';
-import editorDashboard from './editor';
-
 export default {
   name: 'Dashboard',
-  components: { adminDashboard, editorDashboard },
+  components: {},
   data() {
-    return {
-      currentRole: 'adminDashboard',
-    };
   },
   computed: {
-    ...mapGetters([
-      'roles',
-    ]),
   },
   created() {
-    if (!this.roles.includes('admin')) {
-      this.currentRole = 'editorDashboard';
-    }
   },
 };
 </script>
+
+<style rel="stylesheet/scss" lang="scss" scoped>
+.dashboard-editor-container {
+  padding: 32px;
+  min-height: 100%;
+  background-color: rgb(240, 242, 245);
+  .chart-wrapper {
+    background: #fff;
+    padding: 16px 16px 0;
+    margin-bottom: 32px;
+  }
+}
+</style>

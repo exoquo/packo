@@ -7,7 +7,6 @@
         v-permission
       </el-tag>. Please see the belw example here for details
     </div>
-    <switch-roles @change="handleRolesChange" />
     <div :key="key" style="margin-top:30px;">
       <div>
         <span v-role="['admin']" class="permission-alert">
@@ -143,11 +142,9 @@ import permission from '@/directive/permission'; // Permission directive (v-perm
 import role from '@/directive/role'; // Permission directive (v-role)
 import checkPermission from '@/utils/permission'; // Permission checking
 import checkRole from '@/utils/role'; // Role checking
-import SwitchRoles from './components/SwitchRoles';
 
 export default {
   name: 'DirectivePermission',
-  components: { SwitchRoles },
   directives: { permission, role },
   data() {
     return {

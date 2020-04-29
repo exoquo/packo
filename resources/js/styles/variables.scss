@@ -1,23 +1,24 @@
+@import 'element-variables';
 // base color
 $blue:#324157;
-$light-blue:#3A71A8;
-$red:#C03639;
+$light-blue:$--color-primary;
+$red:$--color-danger;
 $pink: #E65D6E;
-$green: #30B08F;
+$green: $--color-success;
 $tiffany: #4AB7BD;
-$yellow:#FEC171;
-$panGreen: #30B08F;
+$yellow:$--color-warning;
+$panGreen: adjust-hue($--color-success, 0.5);
 
 //sidebar
-$menuText:#bfcbd9;
-$menuActiveText:#409EFF;
-$subMenuActiveText:#f4f4f5; //https://github.com/ElemeFE/element/issues/12951
+$menuText: $--color-text-primary;
+$menuActiveText:#ecf0f1;
+$subMenuActiveText:#ecf0f1; //https://github.com/ElemeFE/element/issues/12951
 
-$menuBg:#304156;
-$menuHover:#263445;
+$menuBg:$--menu-background-color;
+$menuHover:$--menu-item-hover-fill;
 
-$subMenuBg:#1f2d3d;
-$subMenuHover:#001528;
+$subMenuBg:$--menu-background-color;
+$subMenuHover:$--menu-item-hover-fill;
 
 $sideBarWidth: 210px;
 

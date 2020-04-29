@@ -12,15 +12,6 @@ const permissionRoutes = {
   },
   children: [
     {
-      path: 'page',
-      component: () => import('@/views/permission/Page'),
-      name: 'PagePermission',
-      meta: {
-        title: 'pagePermission',
-        permissions: ['manage permission'],
-      },
-    },
-    {
       path: 'directive',
       component: () => import('@/views/permission/Directive'),
       name: 'directivePermission',

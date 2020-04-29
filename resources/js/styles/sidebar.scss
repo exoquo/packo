@@ -1,6 +1,7 @@
+@import 'element-variables';
+
 #app {
 
-  // Main container
   .main-container {
     min-height: 100%;
     transition: margin-left .28s;
@@ -8,10 +9,11 @@
     position: relative;
   }
 
-  // Sidebar container
   .sidebar-container {
     transition: width 0.28s;
     width: $sideBarWidth !important;
+    box-shadow: $--box-shadow-light;
+    background-color: $menuBg;
     height: 100%;
     position: fixed;
     font-size: 0px;
@@ -21,21 +23,27 @@
     z-index: 1001;
     overflow: hidden;
 
-    //reset element-ui css
+    // reset element-ui css
     .horizontal-collapse-transition {
       transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
     }
 
     .scrollbar-wrapper {
       overflow-x: hidden !important;
-
-      .el-scrollbar__view {
-        height: 100%;
-      }
     }
 
     .el-scrollbar__bar.is-vertical {
       right: 0px;
+    }
+
+    .el-scrollbar {
+      height: 100%;
+    }
+
+    &.has-logo {
+      .el-scrollbar {
+        height: calc(100% - 50px);
+      }
     }
 
     .is-horizontal {
@@ -100,6 +108,7 @@
 
       .el-tooltip {
         padding: 0 !important;
+
         .svg-icon {
           margin-left: 20px;
         }
@@ -111,6 +120,7 @@
 
       &>.el-submenu__title {
         padding: 0 !important;
+
         .svg-icon {
           margin-left: 20px;
         }
@@ -140,7 +150,7 @@
     min-width: $sideBarWidth !important;
   }
 
-  // Mobile responsive
+  // mobile responsive
   .mobile {
     .main-container {
       margin-left: 0px;
