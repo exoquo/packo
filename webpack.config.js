@@ -20,6 +20,7 @@ if (report) {
   }));
 }
 module.exports = {
+  mode: 'development',
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {

@@ -55,7 +55,8 @@ mix
   })
   .sass('resources/js/styles/index.scss', 'public/css/app.css', {
     implementation: require('node-sass'),
-  });
+  })
+  .browserSync('lager.test');
 
 if (mix.inProduction()) {
   mix.version();
