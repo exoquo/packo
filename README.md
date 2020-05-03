@@ -16,10 +16,7 @@
   </a>
 </p>
 
-# Laravue
-[Laravue](https://laravue.dev) (pronounced /ˈlarəvjuː/) is a beautiful dashboard combination of [Laravel](https://laravel.com/), [Vue.js](https://github.com/vuejs/vue) and the UI Toolkit [Element](https://github.com/ElemeFE/element). The work is inspired by  [vue-element-admin](http://panjiachen.github.io/vue-element-admin) with our love on top of that. With the powerful Laravel framework as the backend, Vue.js as the high performance on the frontend,  Laravue appears to be a full-stack solution for an enterprise application level.
-
-Documentation: [https://doc.laravue.dev](https://doc.laravue.dev)
+# Packo
 
 ## Screenshot
 <p align="center">
@@ -27,14 +24,6 @@ Documentation: [https://doc.laravue.dev](https://doc.laravue.dev)
 </p>
 
 ## Getting started
-
-### Prerequisites
-
- * Laravue is positioned as an enterprise management solution, and it is highly recommended to use it to start from scratch.
- * For existing Laravel project, you should check [Laravue Core](https://github.com/tuandm/laravue-core) for integration.
- * Your machine needs to be ready for the latest [Laravel](https://laravel.com/docs/6.x#installation) and [Node.js](https://nodejs.org).
-
-
 ### Installing
 #### Manual
 
@@ -77,9 +66,10 @@ Open http://localhost:8000 (laravel container port declared in `docker-compose.y
 * Tests system is under development
 
 ## Deployment and/or CI/CD
-This project uses [Envoy](https://laravel.com/docs/5.8/envoy) for deployment, and [GitLab CI/CD](https://about.gitlab.com/product/continuous-integration/). Please check `Envoy.blade.php` and `.gitlab-ci.yml` for more detail.
+This project uses [Envoy](https://laravel.com/docs/7.x/envoy) for deployment, and [Travis CI/CD](https://travis-ci.com/). Please check `Envoy.blade.php` and `.travis.yml` for more detail.
 
 ## Built with
+* [Laravue](https://github.com/tuandm/laravue-core) - Laravel package which provides core functionalities of Laravue.
 * [Laravel](https://laravel.com/) - The PHP Framework For Web Artisans
 * [VueJS](https://vuejs.org/) - The Progressive JavaScript Framework
 * [Element](https://element.eleme.io/) - A  Vue 2.0 based component library for developers, designers and product managers
