@@ -20,6 +20,7 @@
     ],
     "require": {
         "php": "^7.2",
+        "barryvdh/laravel-ide-helper": "^2.7",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^7.0",
         "laravel/sanctum": "^2.1",
