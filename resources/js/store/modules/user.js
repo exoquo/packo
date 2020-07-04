@@ -114,7 +114,7 @@ const actions = {
 
   // Dynamically modify permissions
   changeRoles({ commit, dispatch }, role) {
-    return new Promise(async resolve => {
+    return new Promise(resolve => {
       // const token = role + '-token';
 
       // commit('SET_TOKEN', token);
@@ -129,7 +129,7 @@ const actions = {
       resetRouter();
 
       // generate accessible routes map based on roles
-      const accessRoutes = await store.dispatch('permission/generateRoutes', { roles, permissions });
+      const accessRoutes = store.dispatch('permission/generateRoutes', { roles, permissions });
 
       // dynamically add accessible routes
       router.addRoutes(accessRoutes);

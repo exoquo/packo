@@ -45,7 +45,7 @@ function filterAsyncRoutes(routes, roles, permissions) {
         tmp.children = filterAsyncRoutes(
           tmp.children,
           roles,
-          permissions
+          permissions,
         );
       }
       res.push(tmp);

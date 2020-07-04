@@ -146,7 +146,7 @@ export function param2Obj(url) {
       .replace(/&/g, '","')
       .replace(/=/g, '":"')
       .replace(/\+/g, ' ') +
-    '"}'
+    '"}',
   );
 }
 

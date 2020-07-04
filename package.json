@@ -17,11 +17,6 @@
     "lint": "eslint --ext .js,.vue resources/js",
     "test": "mocha-webpack --webpack-config=webpack.config.js --require tests/Javascript/setup.js tests/Javascript/**/*.spec.js"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "resources/**/*.{js,vue}": [
       "eslint --fix",

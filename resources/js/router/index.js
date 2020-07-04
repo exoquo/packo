@@ -35,75 +35,79 @@ import Layout from '@/layout';
   }
 **/
 
-export const constantRoutes = [
-  {
-    path: '/redirect',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: '/redirect/:path*',
-        component: () => import('@/views/redirect/index'),
-      },
-    ],
-  },
-  {
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true,
-  },
-  {
-    path: '/auth-redirect',
-    component: () => import('@/views/login/AuthRedirect'),
-    hidden: true,
-  },
-  {
-    path: '/404',
-    redirect: { name: 'Page404' },
-    component: () => import('@/views/error-page/404'),
-    hidden: true,
-  },
-  {
-    path: '/401',
-    component: () => import('@/views/error-page/401'),
-    hidden: true,
-  },
-  {
-    path: '',
-    component: Layout,
-    redirect: 'dashboard',
-    children: [
-      {
-        path: 'dashboard',
-        component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: 'dashboard', icon: 'dashboard', noCache: false },
-      },
-    ],
-  },
-  {
-    path: '/profile',
-    component: Layout,
-    redirect: '/profile/edit',
-    hidden: true,
-    children: [
-      {
-        path: 'edit',
-        component: () => import('@/views/users/SelfProfile'),
-        name: 'SelfProfile',
-        meta: { title: 'userProfile', icon: 'user', noCache: true },
-      },
-    ],
-  },
+export const constantRoutes = [{
+  path: '/redirect',
+  component: Layout,
+  hidden: true,
+  children: [{
+    path: '/redirect/:path*',
+    component: () => import('@/views/redirect/index'),
+  }],
+},
+{
+  path: '/login',
+  component: () => import('@/views/login/index'),
+  hidden: true,
+},
+{
+  path: '/auth-redirect',
+  component: () => import('@/views/login/AuthRedirect'),
+  hidden: true,
+},
+{
+  path: '/404',
+  component: () => import('@/views/error-page/404'),
+  hidden: true,
+},
+{
+  path: '/401',
+  component: () => import('@/views/error-page/401'),
+  hidden: true,
+},
+{
+  path: '',
+  component: Layout,
+  redirect: 'dashboard',
+  children: [{
+    path: 'dashboard',
+    component: () => import('@/views/dashboard/index'),
+    name: 'Dashboard',
+    meta: {
+      title: 'dashboard',
+      icon: 'dashboard',
+      noCache: false,
+    },
+  }],
+},
+{
+  path: '/profile',
+  component: Layout,
+  redirect: '/profile/edit',
+  hidden: true,
+  children: [{
+    path: 'edit',
+    component: () => import('@/views/users/SelfProfile'),
+    name: 'SelfProfile',
+    meta: {
+      title: 'userProfile',
+      icon: 'user',
+      noCache: true,
+    },
+  }],
+},
 ];
 
-export const asyncRoutes = [
-  { path: '*', redirect: '/404', hidden: true },
-];
+export const asyncRoutes = [{
+  path: '*',
+  redirect: '/404',
+  hidden: true,
+}];
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+  mode: 'history',
+  scrollBehavior: () => ({
+    y: 0,
+  }),
   base: process.env.MIX_LARAVUE_PATH,
   routes: constantRoutes,
 });
