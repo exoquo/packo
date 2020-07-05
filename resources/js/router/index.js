@@ -74,7 +74,36 @@ export const constantRoutes = [{
     name: 'Dashboard',
     meta: {
       title: 'dashboard',
-      icon: 'dashboard',
+      icon: 'el-icon-odometer',
+      noCache: false,
+    },
+  }],
+},
+{
+  path: '/lager',
+  component: Layout,
+  name: 'Lager',
+  meta: {
+    title: 'Lager',
+    icon: 'el-icon-coin',
+  },
+  children: [{
+    path: '',
+    component: () => import('@/views/inventur/index'),
+    name: 'Bestände',
+    meta: {
+      title: 'Bestände',
+      icon: 'el-icon-coin',
+      noCache: false,
+    },
+  },
+  {
+    path: 'inout',
+    component: () => import('@/views/inventur/inout'),
+    name: 'Ein- Auslagern',
+    meta: {
+      title: 'Ein- Auslagern',
+      icon: 'el-icon-truck',
       noCache: false,
     },
   }],
