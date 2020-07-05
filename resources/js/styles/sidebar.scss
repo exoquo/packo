@@ -56,7 +56,7 @@
       overflow: hidden;
     }
 
-    .svg-icon {
+    i {
       margin-right: 16px;
     }
 
@@ -72,10 +72,6 @@
       &:hover {
         background-color: $menuHover !important;
       }
-    }
-
-    .is-active>.el-submenu__title {
-      color: $subMenuActiveText !important;
     }
 
     & .nest-menu .el-submenu>.el-submenu__title,
@@ -98,7 +94,7 @@
       margin-left: 54px;
     }
 
-    .svg-icon {
+    i {
       margin-right: 0px;
     }
 
@@ -108,10 +104,7 @@
 
       .el-tooltip {
         padding: 0 !important;
-
-        .svg-icon {
-          margin-left: 20px;
-        }
+        text-align: center;
       }
     }
 
@@ -120,10 +113,7 @@
 
       &>.el-submenu__title {
         padding: 0 !important;
-
-        .svg-icon {
-          margin-left: 20px;
-        }
+        text-align: center;
 
         .el-submenu__icon-arrow {
           display: none;

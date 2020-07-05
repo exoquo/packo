@@ -13,6 +13,7 @@
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <i class="el-icon-user" />
+          {{ user.name }}
           <i class="el-icon-arrow-down" />
         </div>
         <el-dropdown-menu slot="dropdown">
@@ -32,18 +33,33 @@
 import { mapGetters } from 'vuex';
 import Breadcrumb from '@/components/Breadcrumb';
 import Hamburger from '@/components/Hamburger';
+import Resource from '@/api/resource';
+
+const userResource = new Resource('users');
 
 export default {
   components: {
     Breadcrumb,
     Hamburger,
   },
+  data(){
+    return { user: {
+      name: '',
+    }};
+  },
   computed: {
     ...mapGetters(['sidebar', 'name', 'avatar', 'device', 'userId']),
+  },
+  created(){
+    this.getUser(this.$store.getters.userId);
   },
   methods: {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar');
+    },
+    async getUser(id) {
+      const { data } = await userResource.get(id);
+      this.user = data;
     },
     async logout() {
       await this.$store.dispatch('user/logout');
