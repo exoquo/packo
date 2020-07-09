@@ -36,6 +36,8 @@
         label="Barcode"
         width="180"
         align="center"
+        class-name="barcode"
+        label-class-name="barcode-label"
       />
       <el-table-column
         label="Produkt"
@@ -43,7 +45,7 @@
         <template slot-scope="scope">
           <div class="product-column">
             <el-image
-              :src="scope.row.img"
+              :src="scope.row.image"
               fit="cover"
             >
               <div slot="error" class="image-slot">
@@ -73,7 +75,7 @@
         </template>
       </el-table-column></el-table>
     <div class="toolbar">
-      <el-input ref="barcode" v-model="barcode" placeholder="Barcode" size="medium" style="width:10em;margin-right:1em" />
+      <el-input id="barcode" v-model="barcode" placeholder="Barcode" size="medium" style="width:10em;margin-right:1em" />
       <div style="display:inline-block;">
         <i v-if="direction" class="el-icon-download" />
         <i v-else class="el-icon-upload2" />
@@ -85,37 +87,52 @@
         active-color="#13ce66"
         inactive-color="#ff4949"
       />
-      <el-button icon="el-icon-check" type="success" style="margin-left:2em">Abschließen</el-button>
+      <el-button icon="el-icon-check" type="success" style="margin-left:2em" @click="submitStock">Speichern</el-button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Inventur',
+  name: 'Movement',
   components: {},
   data() {
     return {
       barcode: '',
-      direction: false,
-      items: [{
-        barcode: '2016-05-03',
-        qty: -2,
-        name: 'INOXSIGN N.30.E',
-      }, {
-        barcode: '2016-05-02',
-        qty: 5,
-        name: 'INOXSIGN N.12.E',
-      }, {
-        barcode: '2016-05-04',
-        qty: 1,
-        name: 'INOXSIGN N.10.E',
-      }, {
-        barcode: '2016-05-01',
-        qty: -5,
-        name: 'INOXSIGN N.03.E',
-      }],
+      direction: true,
+      items: [],
     };
+  },
+  computed: {
+    stock(){
+      const stock = [];
+
+      this.items.forEach(function(item){
+        stock.push({
+          product_id: item.product_id,
+          warehouse_id: 1, // TODO: make it configurable
+          quantity: item.qty,
+        });
+      });
+
+      return stock;
+    },
+  },
+  beforeRouteLeave(to, from, next) {
+    if (this.items.length > 0){
+      this.$confirm('Lageränderungen sind nicht gespeichert!', 'Verlassen?', {
+        confirmButtonText: 'verlassen',
+        confirmButtonClass: 'el-button--danger is-plain',
+        cancelButtonText: 'abbrechen',
+        type: 'error',
+      }).then(() => {
+        next();
+      }).catch(action => {
+        next(false);
+      });
+    } else {
+      next();
+    }
   },
   created(){
     document.addEventListener('keydown', this.logKeys);
@@ -146,24 +163,58 @@ export default {
     },
     logKeys(e){
       if (event.keyCode === 13) {
-        this.addItemToList();
+        this.addOrUpdateItem();
         this.barcode = '';
       }
-      this.$refs.barcode.$el.children[0].focus();
+      document.getElementById('barcode').focus();
     },
-    addItemToList(){
+    addOrUpdateItem(){
       const item = this.items.find(item => item.barcode === this.barcode);
-
+      const barcode = this.barcode;
+      const qty = this.direction ? 1 : -1;
       if (item) {
-        const qty = this.direction ? 1 : -1;
         item.qty = item.qty + qty;
       } else {
-        this.items.push({
-          barcode: this.barcode,
-          qty: this.direction ? 1 : -1,
-          name: 'toDo',
-        });
+        fetch('/api/products/barcode/' + this.barcode)
+          .then(response => response.json())
+          .then(product => this.addProduct(product, qty))
+          .catch(() => {
+            this.items.push({
+              barcode: barcode,
+              qty: qty,
+            });
+          });
       }
+    },
+    addProduct(product, qty){
+      this.items.push({
+        barcode: product.barcode,
+        qty: qty,
+        name: product.name,
+        product_id: product.id,
+        image: product.image,
+      });
+    },
+    submitStock(){
+      fetch('/api/stocks', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.stock),
+      })
+        .then(() => {
+          this.items = [];
+          this.$message({
+            type: 'success',
+            message: 'Erfolgreich geupdatet',
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'error',
+            message: 'Es lief was schief.',
+          });
+        });
     },
   },
 };
@@ -183,6 +234,14 @@ export default {
     width: 50px;
     height: 50px;
     margin: 5px 1em 5px 0;
+  }
+  .barcode{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+  }
+  .barcode-label{
+    font-family: inherit;
+    font-weight: inherit;
   }
 
   .image-slot{

@@ -80,16 +80,37 @@ export const constantRoutes = [{
   }],
 },
 {
-  path: '/lager',
+  path: '/products',
+  component: Layout,
+  name: 'Produkte',
+  meta: {
+    title: 'Produkte',
+    icon: 'el-icon-files',
+  },
+  children: [
+    {
+      path: '',
+      component: () => import('@/views/products/index'),
+      name: 'Produkte',
+      meta: {
+        title: 'Produkte',
+        icon: 'el-icon-files',
+        noCache: false,
+      },
+    },
+  ],
+},
+{
+  path: '/stock',
   component: Layout,
   name: 'Lager',
   meta: {
     title: 'Lager',
-    icon: 'el-icon-coin',
+    icon: 'el-icon-house',
   },
   children: [{
     path: '',
-    component: () => import('@/views/inventur/index'),
+    component: () => import('@/views/stock/index'),
     name: 'Bestände',
     meta: {
       title: 'Bestände',
@@ -98,8 +119,8 @@ export const constantRoutes = [{
     },
   },
   {
-    path: 'inout',
-    component: () => import('@/views/inventur/inout'),
+    path: 'movement',
+    component: () => import('@/views/stock/movement'),
     name: 'Ein- Auslagern',
     meta: {
       title: 'Ein- Auslagern',
