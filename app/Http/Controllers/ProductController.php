@@ -12,8 +12,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->input('page')) {
+            return Product::paginate(20)->toJson();
+        }
         return Product::all()->toJson();
     }
 
@@ -26,7 +29,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //validate
-        Product::create(request(['name', 'sku']));
+        Product::create(request(['name', 'barcode', 'image']));
         //redirect
     }
 
@@ -39,6 +42,18 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         return $product->toJson();
+    }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Product $product
+     * @return \Illuminate\Http\Response
+     */
+    public function barcode($barcode)
+    {
+        return Product::where('barcode', $barcode)->first()->toJson();
     }
 
     /**

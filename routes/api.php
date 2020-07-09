@@ -18,6 +18,12 @@ use \App\Laravue\JsonResponse;
 Route::get('products', 'ProductController@index');
 Route::post('products', 'ProductController@store');
 Route::get('products/{product}', 'ProductController@show');
+Route::get('products/barcode/{barcode}', 'ProductController@barcode');
+
+Route::get('stocks', 'StockController@index');
+Route::post('stocks', 'StockController@store');
+Route::put('stocks', 'StockController@update');
+Route::put('stocks/{stock}', 'StockController@update');
 
 Route::post('auth/login', 'AuthController@login');
 Route::group(['middleware' => 'auth:api'], function () {

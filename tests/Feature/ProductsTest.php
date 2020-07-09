@@ -38,4 +38,17 @@ class ProductsTest extends TestCase
         $this->get('/api/products/' . $product->id)
             ->assertSee($product['name']);
     }
+
+    /** @test */
+    public function a_user_can_find_a_product_by_any_property()
+    {
+        $this->withoutExceptionHandling();
+
+        $product = factory('App\Product')->create();
+
+        $this->get('/api/products/barcode/' . $product->barcode)
+            ->assertSee($product['name'])
+            ->assertSee($product['barcode'])
+            ->assertSee(addcslashes($product['image'],'/'));
+    }
 }

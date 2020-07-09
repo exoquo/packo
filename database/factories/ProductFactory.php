@@ -21,7 +21,9 @@ $factory->define(
     Product::class,
     function (Faker $faker) {
         return [
-            'name' => $faker->name
+            'name' => $faker->name,
+            'barcode' => $faker->ean13,
+            'image' => $faker->imageUrl($width = 500, $height = 500)
         ];
     }
 );
