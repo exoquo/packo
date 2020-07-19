@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Http\Request;
+use App\Traits\UploadTrait;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
+    use UploadTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -26,8 +30,25 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Product $product = null)
     {
+        if ($product && $request->has('file')) {
+            $image = $request->file('file');
+
+            $name = Str::slug($product->name).'_'.time();;
+
+            $folder = '/uploads/images/';
+
+            $filePath = $folder . $name. '.' . $image->getClientOriginalExtension();
+
+            $this->uploadOne($image, $folder, 'public', $name);
+            $this->deleteOne('', 'public', $product->image);
+
+            $product->image = $filePath;
+            $product->save();
+
+            return $product->toJson();
+        }
         //validate
         Product::create(request(['name', 'barcode', 'image']));
         //redirect
@@ -53,7 +74,11 @@ class ProductController extends Controller
      */
     public function barcode($barcode)
     {
-        return Product::where('barcode', $barcode)->first()->toJson();
+        return Product::firstOrCreate(
+            ['barcode'=> $barcode],
+            [   'name' => 'Neuer Barcode ohne Produkt',
+                'barcode'=> $barcode]
+        )->toJson();
     }
 
     /**
@@ -65,7 +90,12 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->name = $request->name;
+        $product->barcode = $request->barcode;
+
+        $product->save();
+
+        return $product->toJson();
     }
 
     /**
