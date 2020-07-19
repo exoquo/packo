@@ -13,8 +13,10 @@ class StocksTest extends TestCase
 
 
     /** @test */
-    public function test_a_user_can_create_stock()
+    public function a_user_can_create_stock()
     {
+        $this->signIn();
+
         $this->withoutExceptionHandling();
 
         $product = factory('App\Product')->create();
@@ -36,8 +38,11 @@ class StocksTest extends TestCase
             ->assertSee($attributes['quantity']);
     }
 
-    public function test_a_user_can_update_stock()
+    /** @test */
+    public function a_user_can_update_stock()
     {
+        $this->signIn();
+
         $this->withoutExceptionHandling();
 
         $stock = factory('App\Stock')->create();
@@ -54,8 +59,11 @@ class StocksTest extends TestCase
             ->assertSee($attributes['quantity']);
     }
 
-    public function test_a_user_can_create_stocks()
+    /** @test */
+    public function a_user_can_create_stocks()
     {
+        $this->signIn();
+
         $this->withoutExceptionHandling();
 
         $changed_stocks = [
@@ -86,8 +94,11 @@ class StocksTest extends TestCase
     }
 
 
-    public function test_a_user_can_update_stocks()
+    /** @test */
+    public function a_user_can_update_stocks()
     {
+        $this->signIn();
+
         $this->withoutExceptionHandling();
 
         $stocks = factory('App\Stock', 10)->create();
@@ -122,8 +133,11 @@ class StocksTest extends TestCase
         }
     }
 
-    public function test_if_quantity_of_stock_is_zero_stock_will_be_deleted()
+    /** @test */
+    public function if_quantity_of_stock_is_zero_stock_will_be_deleted()
     {
+        $this->signIn();
+
         $this->withoutExceptionHandling();
 
         $stock1 = factory('App\Stock')->create();

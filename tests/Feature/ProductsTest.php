@@ -15,6 +15,8 @@ class ProductsTest extends TestCase
     /** @test */
     public function a_user_can_create_a_product()
     {
+        $this->signIn();
+
         $this->withoutExceptionHandling();
 
         $attributes = [
@@ -31,6 +33,8 @@ class ProductsTest extends TestCase
     /** @test */
     public function a_user_can_view_a_product()
     {
+        $this->signIn();
+
         $this->withoutExceptionHandling();
 
         $product = factory('App\Product')->create();
@@ -42,6 +46,8 @@ class ProductsTest extends TestCase
     /** @test */
     public function a_user_can_find_a_product_by_any_property()
     {
+        $this->signIn();
+
         $this->withoutExceptionHandling();
 
         $product = factory('App\Product')->create();
