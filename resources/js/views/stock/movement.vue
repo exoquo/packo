@@ -93,9 +93,13 @@
 </template>
 
 <script>
+import Resource from '@/api/resource';
+
+const productResource = new Resource('products/barcode');
+const stocksResource = new Resource('stocks');
+
 export default {
   name: 'Movement',
-  components: {},
   data() {
     return {
       barcode: '',
@@ -175,8 +179,7 @@ export default {
       if (item) {
         item.qty = item.qty + qty;
       } else {
-        fetch('/api/products/barcode/' + this.barcode)
-          .then(response => response.json())
+        productResource.get(this.barcode)
           .then(product => this.addProduct(product, qty))
           .catch(() => {
             this.items.push({
@@ -196,13 +199,7 @@ export default {
       });
     },
     submitStock(){
-      fetch('/api/stocks', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(this.stock),
-      })
+      stocksResource.update('', this.stock)
         .then(() => {
           this.items = [];
           this.$message({
@@ -220,63 +217,59 @@ export default {
 };
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
-  .el-table .out {
-    background: #f9ebeb;
-  }
-
-  .el-table .in {
-    background: #f0f9eb;
-  }
-
-  .el-image{
-    box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1);
-    width: 50px;
-    height: 50px;
-    margin: 5px 1em 5px 0;
-  }
-  .barcode{
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: 600;
-  }
-  .barcode-label{
-    font-family: inherit;
-    font-weight: inherit;
-  }
-
-  .image-slot{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background: #f5f7fa;
-    color: #909399;
-  }
-
-  .product-column{
-    display: flex;
-    align-items: center;
-  }
-  .toolbar .el-button{
-    font-size: 18px;
-  }
-</style>
-
-<style rel="stylesheet/scss" lang="scss" scoped>
-  .container {
+<style lang="scss" scoped>
+  .container /deep/ {
     min-height: 100vh;
     padding-bottom: 100px;
-  }
-  .toolbar{
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    padding: 25px 50px 25px 25px;
-    border-radius: 20px 0 0 0;
-    box-shadow: 0 2px 10px -5px rgba(0,0,0,.5);
-    background: #ffffff;
-    z-index: 100;
-  }
+    .el-table .out {
+      background: #f9ebeb;
+    }
 
+    .el-table .in {
+      background: #f0f9eb;
+    }
+
+    .el-image{
+      box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1);
+      width: 50px;
+      height: 50px;
+      margin: 5px 1em 5px 0;
+    }
+    .barcode{
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: 600;
+    }
+    .barcode-label{
+      font-family: inherit;
+      font-weight: inherit;
+    }
+
+    .image-slot{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background: #f5f7fa;
+      color: #909399;
+    }
+
+    .product-column{
+      display: flex;
+      align-items: center;
+    }
+    .toolbar .el-button{
+      font-size: 18px;
+    }
+    .toolbar{
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      padding: 25px 50px 25px 25px;
+      border-radius: 20px 0 0 0;
+      box-shadow: 0 2px 10px -5px rgba(0,0,0,.5);
+      background: #ffffff;
+      z-index: 100;
+    }
+  }
 </style>

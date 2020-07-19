@@ -15,18 +15,24 @@ use \App\Laravue\JsonResponse;
 |
 */
 
-Route::get('products', 'ProductController@index');
-Route::post('products', 'ProductController@store');
-Route::get('products/{product}', 'ProductController@show');
-Route::get('products/barcode/{barcode}', 'ProductController@barcode');
 
-Route::get('stocks', 'StockController@index');
-Route::post('stocks', 'StockController@store');
-Route::put('stocks', 'StockController@update');
-Route::put('stocks/{stock}', 'StockController@update');
+
+
+Route::post('products/{product}', 'ProductController@store');
 
 Route::post('auth/login', 'AuthController@login');
 Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('products', 'ProductController@index');
+    Route::post('products', 'ProductController@store');
+    Route::get('products/{product}', 'ProductController@show');
+    Route::put('products/{product}', 'ProductController@update');
+    Route::get('products/barcode/{barcode}', 'ProductController@barcode');
+
+    Route::get('stocks', 'StockController@index');
+    Route::post('stocks', 'StockController@store');
+    Route::put('stocks', 'StockController@update');
+    Route::put('stocks/{stock}', 'StockController@update');
+
     Route::get('auth/user', 'AuthController@user');
     Route::post('auth/logout', 'AuthController@logout');
     Route::get('users', 'UserController@index')->middleware('permission:' . \App\Laravue\Acl::PERMISSION_USER_MANAGE);

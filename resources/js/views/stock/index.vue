@@ -66,80 +66,75 @@
 </template>
 
 <script>
+import Resource from '@/api/resource';
+
+const stocksResource = new Resource('stocks');
+
 export default {
   name: 'Inventur',
-  components: {},
   data() {
     return {
       items: [],
     };
   },
-  computed: {
-  },
   created(){
-    fetch('/api/stocks')
-      .then(response => response.json())
-      .then(data => (this.items = Object.values(data)))
-      .then(data => (console.log(this.items[0].reduce((p, c) => (p.quantity + c.quantity)))));
-  },
-  methods: {
-    productQuantity(value){
-      console.log(value);
-      return value[0].product.quantity;
-    },
-    productBarcode(value){
-      console.log(value);
-      return value[0].product.barcode;
-    },
+    stocksResource.list()
+      .then(data => (this.items = Object.values(data)));
   },
 };
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
-  .container {
+<style lang="scss">
+  .container{
+  }
+</style>
+<style lang="scss" scoped>
+  .container /deep/ {
     min-height: 100vh;
-  }
-  .el-image{
-    box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1);
-    width: 50px;
-    height: 50px;
-    margin: 5px 1em 5px 0;
-  }
-  .image-slot{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background: #f5f7fa;
-    color: #909399;
-  }
-  .product-column{
-    display: flex;
-    align-items: center;
-  }
-  .barcode{
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: 600;
-  }
-  .barcode-label{
-    font-family: inherit;
-    font-weight: inherit;
-  }
-  .warehouse_table,
-  .warehouse_table table,
-  .warehouse_table_row,
-  .warehouse_table_row td,
-  .warehouse_table:hover,
-  .warehouse_table_row:hover
-  .warehouse_table_row:hover td{
-    background: inherit!important;
-    background-color: inherit!important;
-    border:none!important;
-  }
+    padding-bottom: 100px;
 
-  .warehouse_table::before{
-    content:"";
-    display:none;
+    .el-image{
+      box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1);
+      width: 50px;
+      height: 50px;
+      margin: 5px 1em 5px 0;
+    }
+    .image-slot{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background: #f5f7fa;
+      color: #909399;
+    }
+    .product-column{
+      display: flex;
+      align-items: center;
+    }
+    .barcode{
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: 600;
+    }
+    .barcode-label{
+      font-family: inherit;
+      font-weight: inherit;
+    }
+    .warehouse_table,
+    .warehouse_table table,
+    .warehouse_table_row,
+    .warehouse_table_row td,
+    .warehouse_table:hover,
+    .warehouse_table_row:hover
+    .warehouse_table_row:hover td{
+      background: inherit!important;
+      background-color: inherit!important;
+      border:none!important;
+    }
+
+    .warehouse_table::before{
+      content:"";
+      display:none;
+    }
   }
 </style>
