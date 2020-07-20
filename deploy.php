@@ -24,6 +24,7 @@ add(
             '/.env',
             '/storage/',
             '/vendor/',
+            '/public/',
             '/node_modules/',
             '.github',
             'deploy.php',
