@@ -46,6 +46,7 @@ host('lager.exoquo.com')
     ->hostname('185.26.156.158')
     ->stage('production') // production / staging
     ->user('exopinv')
+    ->set('http_user', 'exopinv')
     ->set('deploy_path', '/home/exopinv/html');
 
 after('deploy:failed', 'deploy:unlock'); // Unlock after failed deploy
