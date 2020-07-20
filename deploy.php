@@ -24,7 +24,6 @@ add(
             '/.env',
             '/storage/',
             '/vendor/',
-            '/public/',
             '/node_modules/',
             '.github',
             'deploy.php',
@@ -63,6 +62,7 @@ task('deploy', [
     'deploy:shared',
     'deploy:vendors',
     'deploy:writable',
+    'artisan:cache:clear', // |
     'artisan:storage:link', // |
     'artisan:view:cache',   // |
     'artisan:config:cache', // | Laravel specific steps
