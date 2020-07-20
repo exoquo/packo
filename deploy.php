@@ -40,3 +40,33 @@ task(
         upload('.env', get('deploy_path') . '/shared');
     }
 );
+
+
+host('lager.exoquo.com')
+    ->hostname('185.26.156.158')
+    ->stage('production') // production / staging
+    ->user('exopinv')
+    ->set('deploy_path', '/home/exopinv/html');
+
+after('deploy:failed', 'deploy:unlock'); // Unlock after failed deploy
+
+desc('Deploy the application');
+task('deploy', [
+    'deploy:info',
+    'deploy:prepare',
+    'deploy:lock',
+    'deploy:release',
+    'rsync', // Deploy code & built assets
+    'deploy:secrets', // Deploy secrets
+    'deploy:shared',
+    'deploy:vendors',
+    'deploy:writable',
+    'artisan:storage:link', // |
+    'artisan:view:cache',   // |
+    'artisan:config:cache', // | Laravel specific steps
+    'artisan:optimize',     // |
+    'artisan:migrate',      // |
+    'deploy:symlink',
+    'deploy:unlock',
+    'cleanup',
+]);
