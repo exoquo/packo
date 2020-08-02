@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('lager'),
         ]);
 
-        $adminRole = Role::findByName(Acl::ROLE_ADMIN);
-        $admin->syncRoles($adminRole);
+        $admin->syncRoles(Role::findByName(Acl::ROLE_ADMIN));
     }
 }
