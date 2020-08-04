@@ -39,7 +39,11 @@ class SyncBillbeeProducts extends Command
      */
     public function handle()
     {
-        $client = new Client(env('BILLBEE_USERNAME'), env('BILLBEE_PASSWORD'), env('BILLBEE_API_KEY'));
+        $client = new Client(
+            env('BILLBEE_USERNAME'),
+            env('BILLBEE_PASSWORD'),
+            env('BILLBEE_API_KEY')
+        );
 
         $totalPages = 1;
 
@@ -63,10 +67,16 @@ class SyncBillbeeProducts extends Command
                 Product::updateOrCreate(
                     ['sku'=> $product->sku],
                     [
-                        'name' => empty($product->invoiceText) ? $product->title[0]->text : $product->invoiceText[0]->text,
+                        'name' => empty($product->invoiceText) ?
+                                    $product->title[0]->text :
+                                    $product->invoiceText[0]->text,
+
                         'barcode'=> $barcode,
                         'sku'=> $product->sku,
-                        'image'=> empty($product->images) ? '' : $product->images[0]->url,
+                        'image'=> empty($product->images) ?
+                                    '' :
+                                    $product->images[0]->url,
+
                         'lable_text'=> $label_text,
                         'billbee_id'=> $product->id,
                         'price'=> $product->price,
