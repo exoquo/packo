@@ -104,6 +104,17 @@ class UserController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  Request $request
+     * @return UserResource|\Illuminate\Http\JsonResponse
+     */
+    public function showRequest(Request $request)
+    {
+        return new UserResource($request->user());
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param Request $request

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use \App\Laravue\Faker;
 use \App\Laravue\JsonResponse;
@@ -16,9 +17,6 @@ use \App\Laravue\Acl;
 |
 */
 
-
-
-
 Route::post('products/{product}', 'ProductController@store');
 
 Route::post('auth/login', 'AuthController@login');
@@ -27,9 +25,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('auth/user', 'AuthController@user');
     Route::post('auth/logout', 'AuthController@logout');
 
-    Route::get('/user', function (Request $request) {
-        return new UserResource($request->user());
-    });
+    Route::get('/user', 'UserController@showRequest');
 
     // Api resource routes
     Route::apiResource('roles', 'RoleController')->middleware('permission:' . Acl::PERMISSION_PERMISSION_MANAGE);
