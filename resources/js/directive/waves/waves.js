@@ -11,7 +11,7 @@ function handleClick(el, binding) {
         type: 'hit', // hit: Wave at click location. center: Center point
         color: 'rgba(0, 0, 0, 0.15)', // Ripple color
       },
-      customOpts
+      customOpts,
     );
     const target = opts.ele;
     if (target) {

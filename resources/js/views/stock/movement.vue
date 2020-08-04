@@ -1,80 +1,83 @@
 <template>
   <div class="container">
-    <el-table
-      id="items-table"
-      :data="items"
-      style="width: 100%"
-      :row-class-name="highlightRow"
-      empty-text="Einlager oder Auslagern wählen und anfangen zu scannen."
-    >
-      <el-table-column
-        width="50"
-        align="center"
+    <el-card>
+      <el-table
+        id="items-table"
+        :data="items"
+        style="width: 100%"
+        :row-class-name="highlightRow"
+        empty-text="Einlager oder Auslagern wählen und anfangen zu scannen."
       >
-        <template slot-scope="scope">
-          <i v-if="scope.row.qty > 0" class="el-icon-download" />
-          <i v-else class="el-icon-upload2" />
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="qty"
-        label="Anzahl"
-        width="180"
-        align="center"
-        sortable
-      >
-        <template slot-scope="scope">
-          <el-input-number
-            v-model="scope.row.qty"
-            size="small"
-          />
-        </template>
-      </el-table-column>
+        <el-table-column
+          width="50"
+          align="center"
+        >
+          <template slot-scope="scope">
+            <i v-if="scope.row.qty > 0" class="el-icon-download" />
+            <i v-else class="el-icon-upload2" />
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="qty"
+          label="Anzahl"
+          width="180"
+          align="center"
+          sortable
+        >
+          <template slot-scope="scope">
+            <el-input-number
+              v-model="scope.row.qty"
+              size="small"
+            />
+          </template>
+        </el-table-column>
 
-      <el-table-column
-        prop="barcode"
-        label="Barcode"
-        width="180"
-        align="center"
-        class-name="barcode"
-        label-class-name="barcode-label"
-      />
-      <el-table-column
-        label="Produkt"
-      >
-        <template slot-scope="scope">
-          <div class="product-column">
-            <el-image
-              :src="scope.row.image"
-              fit="cover"
-            >
-              <div slot="error" class="image-slot">
-                <i class="el-icon-picture-outline" />
-              </div>
-            </el-image>
-            {{ scope.row.name }}
-          </div>
-        </template>
-      </el-table-column>
+        <el-table-column
+          prop="barcode"
+          label="Barcode"
+          width="180"
+          align="center"
+          class-name="barcode"
+          label-class-name="barcode-label"
+        />
+        <el-table-column
+          label="Produkt"
+        >
+          <template slot-scope="scope">
+            <div class="product-column">
+              <el-image
+                :src="scope.row.image"
+                fit="cover"
+              >
+                <div slot="error" class="image-slot">
+                  <i class="el-icon-picture-outline" />
+                </div>
+              </el-image>
+              {{ scope.row.name }}
+            </div>
+          </template>
+        </el-table-column>
 
-      <el-table-column
-        prop="action"
-        label="Action"
-        width="200"
-        align="right"
-      >
-        <template slot-scope="scope">
-          <el-button v-if="scope.row.qty > 0" icon="el-icon-upload2" type="danger" circle @click="scope.row.qty *= -1" />
-          <el-button v-else icon="el-icon-download" type="success" circle @click="scope.row.qty *= -1" />
-          <el-button
-            type="danger"
-            icon="el-icon-delete"
-            circle
-            @click="deleteItem(scope.$index, scope.row)"
-          />
-        </template>
-      </el-table-column></el-table>
-    <div class="toolbar">
+        <el-table-column
+          prop="action"
+          label="Action"
+          width="200"
+          align="right"
+        >
+          <template slot-scope="scope">
+            <el-button v-if="scope.row.qty > 0" icon="el-icon-upload2" type="danger" circle @click="scope.row.qty *= -1" />
+            <el-button v-else icon="el-icon-download" type="success" circle @click="scope.row.qty *= -1" />
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              circle
+              @click="deleteItem(scope.$index, scope.row)"
+            />
+          </template>
+        </el-table-column></el-table>
+
+    </el-card>
+    <el-card class="toolbar">
       <el-input id="barcode" v-model="barcode" placeholder="Barcode" size="medium" style="width:10em;margin-right:1em" />
       <div style="display:inline-block;">
         <i v-if="direction" class="el-icon-download" />
@@ -88,7 +91,7 @@
         inactive-color="#ff4949"
       />
       <el-button icon="el-icon-check" type="success" style="margin-left:2em" @click="submitStock">Speichern</el-button>
-    </div>
+    </el-card>
   </div>
 </template>
 
@@ -220,7 +223,10 @@ export default {
 <style lang="scss" scoped>
   .container /deep/ {
     min-height: 100vh;
+    padding: 20px;
     padding-bottom: 100px;
+      background: #FAFAFA;
+
     .el-table .out {
       background: #f9ebeb;
     }
@@ -263,12 +269,8 @@ export default {
     }
     .toolbar{
       position: fixed;
-      bottom: 0;
-      right: 0;
-      padding: 25px 50px 25px 25px;
-      border-radius: 20px 0 0 0;
-      box-shadow: 0 2px 10px -5px rgba(0,0,0,.5);
-      background: #ffffff;
+      bottom: 10px;
+      right: 10px;
       z-index: 100;
     }
   }

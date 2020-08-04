@@ -1,68 +1,71 @@
 <template>
   <div class="container">
-    <el-table
-      :data="items"
-      style="width: 100%"
-    >
-      <el-table-column
-        label="Barcode"
-        width="180"
-        align="center"
-        class-name="barcode"
-        label-class-name="barcode-label"
+    <el-card>
+      <el-table
+        :data="items"
+        style="width: 100%"
       >
-        <template slot-scope="scope">
-          {{ scope.row[0].product.barcode }}
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="Anzahl"
-        width="100"
-        align="center"
-      >
-        <template slot-scope="scope">
-          {{ scope.row.length > 1 ? scope.row.reduce((p, c) => (isNaN(p.quantity) ? p + c.quantity: p.quantity + c.quantity)) : scope.row[0].quantity }}
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="Produkt"
-      >
-        <template slot-scope="scope">
-          <div class="product-column">
-            <el-image
-              :src="scope.row[0].product.image"
-              fit="cover"
+        <el-table-column
+          label="Barcode"
+          width="180"
+          align="center"
+          class-name="barcode"
+          label-class-name="barcode-label"
+        >
+          <template slot-scope="scope">
+            {{ scope.row[0].product.barcode }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Anzahl"
+          width="100"
+          align="center"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.length > 1 ? scope.row.reduce((p, c) => (isNaN(p.quantity) ? p + c.quantity: p.quantity + c.quantity)) : scope.row[0].quantity }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Produkt"
+        >
+          <template slot-scope="scope">
+            <div class="product-column">
+              <el-image
+                :src="scope.row[0].product.image"
+                fit="cover"
+              >
+                <div slot="error" class="image-slot">
+                  <i class="el-icon-picture-outline" />
+                </div>
+              </el-image>
+              {{ scope.row[0].product.name }}
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column label="Lager">
+          <template slot-scope="scope">
+            <el-table
+              :data="scope.row"
+              style="width: 100%"
+              size="mini"
+              :show-header="false"
+              row-class-name="warehouse_table_row"
+              class="warehouse_table"
             >
-              <div slot="error" class="image-slot">
-                <i class="el-icon-picture-outline" />
-              </div>
-            </el-image>
-            {{ scope.row[0].product.name }}
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column label="Lager">
-        <template slot-scope="scope">
-          <el-table
-            :data="scope.row"
-            style="width: 100%"
-            size="mini"
-            :show-header="false"
-            row-class-name="warehouse_table_row"
-            class="warehouse_table"
-          >
-            <el-table-column
-              prop="warehouse.name"
-              width="150"
-            />
-            <el-table-column
-              prop="quantity"
-              width="50"
-            />
-          </el-table>
-        </template>
-      </el-table-column>
-    </el-table></div>
+              <el-table-column
+                prop="warehouse.name"
+                width="150"
+              />
+              <el-table-column
+                prop="quantity"
+                width="50"
+              />
+            </el-table>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-card>
+  </div>
 </template>
 
 <script>
@@ -84,14 +87,12 @@ export default {
 };
 </script>
 
-<style lang="scss">
-  .container{
-  }
-</style>
 <style lang="scss" scoped>
   .container /deep/ {
     min-height: 100vh;
+    padding: 20px;
     padding-bottom: 100px;
+      background: #FAFAFA;
 
     .el-image{
       box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1);

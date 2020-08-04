@@ -12,6 +12,9 @@ Vue.use(Router);
 /* Layout */
 import Layout from '@/layout';
 
+/* Router for modules */
+import adminRoutes from './modules/admin';
+
 /**
  * Sub-menu only appear when children.length>=1
  * @see https://doc.laravue.dev/guide/essentials/router-and-nav.html
@@ -147,11 +150,13 @@ export const constantRoutes = [{
 },
 ];
 
-export const asyncRoutes = [{
-  path: '*',
-  redirect: '/404',
-  hidden: true,
-}];
+export const asyncRoutes = [
+  adminRoutes,
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true,
+  }];
 
 const createRouter = () => new Router({
   mode: 'history',

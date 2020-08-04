@@ -1,46 +1,52 @@
 <template>
   <div class="container">
-    <el-table
-      :data="products"
-      style="width: 100%"
-    >
-      <el-table-column
-        label="Image"
-        width="100"
+    <el-card>
+      <el-table
+        :data="products"
+        style="width: 100%"
       >
-        <template slot-scope="scope">
-          <ImageUpload
-            :image.sync="scope.row.image"
-            :action.sync="'/api/products/'+scope.row.id"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="Name"
-        width="400"
-      >
-        <template slot-scope="scope">
-          <el-input v-model="scope.row.name" placeholder="Product Name" @blur="update(scope.row)" />
-        </template></el-table-column>
-      <el-table-column
-        prop="barcode"
-        label="Barcode"
-        width="180"
-      >
-        <template slot-scope="scope">
-          <el-input v-model="scope.row.barcode" placeholder="Product Barcode" @blur="update(scope.row)" />
-        </template>
+        <el-table-column
+          label="Image"
+          width="100"
+        >
+          <template slot-scope="scope">
+            <ImageUpload
+              :image.sync="scope.row.image"
+              :action.sync="'/api/products/'+scope.row.id"
+            />
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="Name"
+          width="400"
+        >
+          <template slot-scope="scope">
+            <el-input v-model="scope.row.name" placeholder="Product Name" @blur="update(scope.row)" />
+          </template></el-table-column>
+        <el-table-column
+          prop="barcode"
+          label="Barcode"
+          width="180"
+        >
+          <template slot-scope="scope">
+            <el-input v-model="scope.row.barcode" placeholder="Product Barcode" @blur="update(scope.row)" />
+          </template>
 
-      </el-table-column></el-table>
-    <el-pagination
-      :current-page="current_page"
-      layout="prev, pager, next"
-      :page-count="last_page"
-      @current-change="currentPage"
-      @prev-click="prevPage"
-      @next-click="nextPage"
-    />
+        </el-table-column></el-table>
+    </el-card>
+    <div style="position: absolute;bottom: 0;left: 0;right: 0;">
+      <el-card>
+        <el-pagination
+          :current-page="current_page"
+          layout="prev, pager, next"
+          :page-count="last_page"
+          @current-change="currentPage"
+          @prev-click="prevPage"
+          @next-click="nextPage"
+        />
+      </el-card>
+    </div>
   </div>
 </template>
 
@@ -106,12 +112,17 @@ export default {
 
 <style lang="scss" scoped>
   .container /deep/ {
-    min-height: 100vh;
+    min-height: calc( 100vh - 150px);
     padding-bottom: 100px;
+      background: #FAFAFA;
+      position: relative;
+
+    .el-card{
+      margin: 20px;
+    }
 
     .el-pagination{
       display: flex;
-      margin: 50px 0;
       justify-content: center;
       align-items: center;
     }

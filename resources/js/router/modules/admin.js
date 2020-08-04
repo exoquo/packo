@@ -2,14 +2,14 @@
 import Layout from '@/layout';
 
 const adminRoutes = {
-  path: '/administrator',
+  path: '/admin',
   component: Layout,
-  redirect: '/administrator/users',
+  redirect: '/admin/users',
   name: 'Administrator',
-  alwaysShow: true,
+  hidden: true,
   meta: {
     title: 'administrator',
-    icon: 'admin',
+    icon: 'el-icon-setting',
     permissions: ['view menu administrator'],
   },
   children: [
@@ -25,34 +25,24 @@ const adminRoutes = {
       path: 'users',
       component: () => import('@/views/users/List'),
       name: 'UserList',
-      meta: { title: 'users', icon: 'user', permissions: ['manage user'] },
+      hidden: true,
+      meta: {
+        title: 'users',
+        icon: 'el-icon-user',
+        permissions: ['manage user'],
+      },
     },
     /** Role and permission */
     {
       path: 'roles',
       component: () => import('@/views/role-permission/List'),
       name: 'RoleList',
-      meta: { title: 'rolePermission', icon: 'role', permissions: ['manage permission'] },
-    },
-    {
-      path: 'articles/create',
-      component: () => import('@/views/articles/Create'),
-      name: 'CreateArticle',
-      meta: { title: 'createArticle', icon: 'edit', permissions: ['manage article'] },
       hidden: true,
-    },
-    {
-      path: 'articles/edit/:id(\\d+)',
-      component: () => import('@/views/articles/Edit'),
-      name: 'EditArticle',
-      meta: { title: 'editArticle', noCache: true, permissions: ['manage article'] },
-      hidden: true,
-    },
-    {
-      path: 'articles',
-      component: () => import('@/views/articles/List'),
-      name: 'ArticleList',
-      meta: { title: 'articleList', icon: 'list', permissions: ['manage article'] },
+      meta: {
+        title: 'rolePermission',
+        icon: 'el-icon-lock',
+        permissions: ['manage permission'],
+      },
     },
   ],
 };

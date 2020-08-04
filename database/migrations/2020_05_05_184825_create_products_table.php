@@ -16,8 +16,15 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('sku')->nullable();
             $table->string('barcode')->nullable();
             $table->string('image')->nullable();
+            $table->string('lable_text')->nullable();
+            $table->bigInteger('billbee_id')->nullable();
+            $table->decimal('price', 5, 2)->nullable();
+            $table->decimal('unit_cost', 5, 2)->nullable();
+            $table->decimal('storage_cost', 5, 2)->nullable();
+            $table->decimal('order_cost', 5, 2)->nullable();
             $table->timestamps();
         });
     }

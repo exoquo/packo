@@ -6,15 +6,12 @@
       class="hamburger-container"
       @toggleClick="toggleSideBar"
     />
-
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
-
     <div class="right-menu">
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <i class="el-icon-user" />
           {{ user.name }}
-          <i class="el-icon-arrow-down" />
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link v-show="userId !== null" :to="`/profile/edit`">
@@ -23,6 +20,18 @@
           <el-dropdown-item divided>
             <span style="display:block;" @click="logout">{{ $t('navbar.logOut') }}</span>
           </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <el-dropdown v-role="['admin']" class="right-menu-item hover-effect" trigger="click">
+        <i class="el-icon-setting" />
+        <el-dropdown-menu slot="dropdown">
+          <router-link :to="`/admin/users`">
+            <el-dropdown-item><i class="el-icon-user" /> Benutzer</el-dropdown-item>
+          </router-link>
+          <el-dropdown-item divided />
+          <router-link :to="`/admin/roles`">
+            <el-dropdown-item><i class="el-icon-lock" /> Rechte</el-dropdown-item>
+          </router-link>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -34,10 +43,16 @@ import { mapGetters } from 'vuex';
 import Breadcrumb from '@/components/Breadcrumb';
 import Hamburger from '@/components/Hamburger';
 import Resource from '@/api/resource';
+import permission from '@/directive/permission/index.js';
+import role from '@/directive/role/index.js';
 
 const userResource = new Resource('users');
 
 export default {
+  directives: {
+    permission,
+    role,
+  },
   components: {
     Breadcrumb,
     Hamburger,
@@ -75,7 +90,8 @@ export default {
   overflow: hidden;
   position: relative;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  box-shadow: 0 5px 18px rgba(0, 21, 41, 0.1);
+  z-index: 10;
 
   .hamburger-container {
     line-height: 46px;
@@ -126,11 +142,12 @@ export default {
       }
     }
 
+    margin-right: 20px;
+    .right-menu-item{
+      margin-right: 5px;
+    }
     .avatar-container {
-      margin-right: 30px;
-
       .avatar-wrapper {
-        margin-top: 5px;
         position: relative;
 
         .user-avatar {

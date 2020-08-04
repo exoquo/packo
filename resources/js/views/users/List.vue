@@ -11,9 +11,6 @@
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
         {{ $t('table.add') }}
       </el-button>
-      <el-button v-waves :loading="downloading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
-        {{ $t('table.export') }}
-      </el-button>
     </div>
 
     <el-table v-loading="loading" :data="list" border fit highlight-current-row style="width: 100%">
@@ -43,7 +40,7 @@
 
       <el-table-column align="center" label="Actions" width="350">
         <template slot-scope="scope">
-          <router-link v-if="!scope.row.roles.includes('admin')" :to="'/administrator/users/edit/'+scope.row.id">
+          <router-link v-if="!scope.row.roles.includes('admin')" :to="'/admin/users/edit/'+scope.row.id">
             <el-button v-permission="['manage user']" type="primary" size="small" icon="el-icon-edit">
               Edit
             </el-button>
@@ -369,20 +366,6 @@ export default {
         confirmPassword: '',
         role: 'user',
       };
-    },
-    handleDownload() {
-      this.downloading = true;
-      import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['id', 'user_id', 'name', 'email', 'role'];
-        const filterVal = ['index', 'id', 'name', 'email', 'role'];
-        const data = this.formatJson(filterVal, this.list);
-        excel.export_json_to_excel({
-          header: tHeader,
-          data,
-          filename: 'user-list',
-        });
-        this.downloading = false;
-      });
     },
     formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => v[j]));
