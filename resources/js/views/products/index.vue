@@ -10,30 +10,50 @@
           width="100"
         >
           <template slot-scope="scope">
-            <ImageUpload
-              :image.sync="scope.row.image"
-              :action.sync="'/api/products/'+scope.row.id"
-            />
+            <el-image
+              :src="scope.row.image"
+              fit="cover"
+            >
+              <div slot="error" class="image-slot">
+                <i class="el-icon-picture-outline" />
+              </div>
+            </el-image>
           </template>
         </el-table-column>
         <el-table-column
           prop="name"
           label="Name"
-          width="400"
-        >
-          <template slot-scope="scope">
-            <el-input v-model="scope.row.name" placeholder="Product Name" @blur="update(scope.row)" />
-          </template></el-table-column>
+        />
+        <el-table-column
+          prop="label_text"
+          label="Label"
+          width="200"
+        />
         <el-table-column
           prop="barcode"
           label="Barcode"
           width="180"
+          class-name="barcode"
+          label-class-name="barcode-label"
+        />
+
+        <el-table-column
+          prop="sku"
+          label="SKU"
+          width="180"
+          class-name="barcode"
+          label-class-name="barcode-label"
+        />
+        <el-table-column
+          prop="price"
+          label="Preis"
+          width="100"
         >
           <template slot-scope="scope">
-            <el-input v-model="scope.row.barcode" placeholder="Product Barcode" @blur="update(scope.row)" />
+            {{ scope.row.price.replace(".", ",") }} €
           </template>
-
-        </el-table-column></el-table>
+        </el-table-column>
+      </el-table>
     </el-card>
     <div style="position: absolute;bottom: 0;left: 0;right: 0;">
       <el-card>
@@ -52,13 +72,11 @@
 
 <script>
 import Resource from '@/api/resource';
-import ImageUpload from '@/components/Upload/ImageUpload.vue';
 
 const productResource = new Resource('products');
 
 export default {
   name: 'Products',
-  components: { ImageUpload },
   data() {
     return {
       products: [],
@@ -119,6 +137,32 @@ export default {
 
     .el-card{
       margin: 20px;
+    }
+    .barcode{
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: 600;
+    }
+    .barcode-label{
+      font-family: inherit;
+      font-weight: inherit;
+    }
+    .el-image{
+      box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1);
+      width: 72px;
+      height: 72px;
+      margin: 5px 1em 5px 0;
+      border-radius: 5px;
+    }
+
+    .image-slot{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3em;
+      width: 100%;
+      height: 100%;
+      background: #f5f7fa;
+      color: #909399;
     }
 
     .el-pagination{

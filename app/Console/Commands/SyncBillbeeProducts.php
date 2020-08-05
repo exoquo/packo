@@ -77,7 +77,7 @@ class SyncBillbeeProducts extends Command
                                     '' :
                                     $product->images[0]->url,
 
-                        'lable_text'=> $label_text,
+                        'label_text'=> $label_text,
                         'billbee_id'=> $product->id,
                         'price'=> $product->price,
                         'unit_cost'=> $product->costPrice

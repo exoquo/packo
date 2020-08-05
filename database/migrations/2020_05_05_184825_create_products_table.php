@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('sku')->nullable();
             $table->string('barcode')->nullable();
             $table->string('image')->nullable();
-            $table->string('lable_text')->nullable();
+            $table->string('label_text')->nullable();
             $table->bigInteger('billbee_id')->nullable();
             $table->decimal('price', 5, 2)->nullable();
             $table->decimal('unit_cost', 5, 2)->nullable();
