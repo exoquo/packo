@@ -65,7 +65,7 @@ class SyncBillbeeProducts extends Command
                 }
 
                 Product::updateOrCreate(
-                    ['sku'=> $product->sku],
+                    ['billbee_id'=> $product->id],
                     [
                         'name' => empty($product->invoiceText) ?
                                     $product->title[0]->text :
