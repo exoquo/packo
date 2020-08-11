@@ -1,3 +1,5 @@
+
+import '@babel/polyfill';
 import Vue from 'vue';
 import Cookies from 'js-cookie';
 import ElementUI from 'element-ui';
@@ -7,7 +9,6 @@ import router from '@/router';
 import i18n from './lang'; // Internationalization
 import '@/icons'; // icon
 import '@/permission'; // permission control
-import '@babel/polyfill';
 
 import * as filters from './filters'; // global filters
 

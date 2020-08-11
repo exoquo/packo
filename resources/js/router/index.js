@@ -70,7 +70,7 @@ export const constantRoutes = [{
 {
   path: '',
   component: Layout,
-  redirect: 'dashboard',
+  redirect: '/dashboard',
   children: [{
     path: 'dashboard',
     component: () => import('@/views/dashboard/index'),
@@ -83,13 +83,22 @@ export const constantRoutes = [{
   }],
 },
 {
+  path: '/barcode',
+  component: Layout,
+  children: [{
+    path: '',
+    component: () => import('@/views/barcode/index'),
+    name: 'Barcode',
+    meta: {
+      title: 'Barcode',
+      icon: 'el-icon-printer',
+      noCache: false,
+    },
+  }],
+},
+{
   path: '/products',
   component: Layout,
-  name: 'Produkte',
-  meta: {
-    title: 'Produkte',
-    icon: 'el-icon-files',
-  },
   children: [
     {
       path: '',
