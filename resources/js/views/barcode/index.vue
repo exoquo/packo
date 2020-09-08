@@ -3,8 +3,14 @@
     <el-container style="text-align:center">
       <el-row>
         <el-col v-for="n in 40" :key="n" :span="6" class="barcode-box">
-          <el-barcode :flat="true" :width="2" :height="60" :value="barcode" :format="barcode.length == 13 ? 'EAN13' : 'CODE128'" />
-          {{ text }}
+          <el-barcode :class="barcode.length == 13 ? 'EAN13' : 'CODE128'" :margin="0" :font-size="0" :flat="true" :width="2" :height="42" :value="barcode" :format="barcode.length == 13 ? 'EAN13' : 'CODE128'" />
+          <div class="data">
+            <el-image :src="image" />
+            <div class="discription">
+              <div class="text">{{ text }}</div>
+              <div class="material">{{ material }}</div>
+            </div>
+          </div>
         </el-col>
       </el-row>
     </el-container>
@@ -36,15 +42,33 @@ export default {
     return {
       barcode: 'SAACSDDA3',
       text: 'Barcode',
+      material: 'Messing',
+      image: 'https://image.inoxsign.com/no.pic',
       products: [],
       selected: null,
+      design: '',
     };
   },
   watch: {
     selected: function(id) {
       var product = this.products[id - 1];
       this.barcode = product.barcode;
-      this.text = product.label_text;
+      this.text = product.label_text.replace('INOXSIGN ', '');
+      const design = product.label_text.replace('INOXSIGN ', '').split('.');
+
+      const material = design.pop();
+      if (material === 'M'){
+        this.material = 'Messing';
+      }
+      if (material === 'E'){
+        this.material = 'Edelstahl';
+      }
+      if (material === 'R'){
+        this.material = 'Vintage';
+      }
+
+      this.design = design.join('.');
+      this.image = 'https://image.inoxsign.com/' + this.design;
     },
   },
   created(){
@@ -54,7 +78,7 @@ export default {
     async fetchProducts(){
       const data = await productResource.list();
       this.products = data;
-      this.selected = 1;
+      this.selected = this.$route.params.id | 1;
     },
     print(){
       window.print();
@@ -88,14 +112,45 @@ export default {
       margin:0 auto!important;
     }
     .el-col{
-      padding: 3mm;
+      position: relative;
       height: 29.7mm;
+      padding: 4mm;
       overflow: hidden!important;
     }
     .vue-barcode-element{
       width:100%!important;
-      margin-top: -6mm;
-      margin-bottom: -4mm;
+      height: 12mm!important;
+    margin-top: -2mm;
+      margin-bottom: 0;
+    }
+    .EAN13 .vue-barcode-element{
+      margin-left: -22px;
+    }
+
+    .data{
+      position: relative;
+      width:100%!important;
+      height: 10mm!important;
+      display: flex;
+      font-size: 1em;
+      text-align: right;
+    }
+    .el-image{
+      height: 19;
+      width: 56mm!important;
+      text-align: left;
+    }
+    .el-image .el-image__inner{
+      width: auto;
+    }
+    .discription{
+      padding: 0 1mm;
+      width: 100%;
+    }
+    .discription > div{
+      height: 5mm;
+      width: 100%;
+      overflow: hidden;
     }
 </style>
 <style lang="scss" scoped>

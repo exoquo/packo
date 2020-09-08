@@ -83,7 +83,7 @@ export const constantRoutes = [{
   }],
 },
 {
-  path: '/barcode',
+  path: '/barcode/:id',
   component: Layout,
   children: [{
     path: '',

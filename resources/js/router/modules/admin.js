@@ -44,6 +44,17 @@ const adminRoutes = {
         permissions: ['manage permission'],
       },
     },
+    {
+      path: 'integrations',
+      component: () => import('@/views/role-permission/List'),
+      name: 'RoleList',
+      hidden: true,
+      meta: {
+        title: 'Integrations',
+        icon: 'el-icon-connection',
+        permissions: [''],
+      },
+    },
   ],
 };
 
