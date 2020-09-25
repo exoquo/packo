@@ -11,7 +11,7 @@
         >
           <template slot-scope="scope">
             <el-image
-              :src="scope.row.image"
+              :src="'https://api.rethumb.com/v1/square/100/'+scope.row[0].product.image"
               fit="cover"
             >
               <div slot="error" class="image-slot">

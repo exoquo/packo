@@ -31,7 +31,7 @@
           <template slot-scope="scope">
             <div class="product-column">
               <el-image
-                :src="scope.row[0].product.image"
+                :src="'https://api.rethumb.com/v1/square/100/'+scope.row[0].product.image"
                 fit="cover"
               >
                 <div slot="error" class="image-slot">
@@ -77,8 +77,28 @@ export default {
   name: 'Inventur',
   data() {
     return {
+      search: '',
       items: [],
     };
+  },
+  computed: {
+    sorted_items() {
+      return this.items.slice(0).sort(function(a, b) {
+        if (a[0].product.label_text < b[0].product.label_text) {
+          return -1;
+        }
+        if (a[0].product.label_text > b[0].product.label_text) {
+          return 1;
+        }
+        return 0;
+      });
+    },
+    filtered_items() {
+      return this.sorted_items.filter(item => {
+        return item[0].product.label_text.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+            item[0].product.barcode.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+      });
+    },
   },
   created(){
     stocksResource.list()
