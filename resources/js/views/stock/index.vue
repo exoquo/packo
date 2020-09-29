@@ -2,7 +2,7 @@
   <div class="container">
     <el-card>
       <el-table
-        :data="items"
+        :data="sorted_items"
         style="width: 100%"
       >
         <el-table-column
