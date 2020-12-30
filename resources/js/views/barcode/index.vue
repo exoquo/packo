@@ -17,10 +17,10 @@
     <el-card class="toolbar">
       <el-select v-model="selected" filterable placeholder="Select">
         <el-option
-          v-for="product in products.filter(procuct => procuct.barcode !== '')"
-          :key="product.id"
+          v-for="(product, index) in products.filter(procuct => procuct.barcode !== '')"
+          :key="index"
           :label="product.label_text"
-          :value="product.id"
+          :value="index"
         />
       </el-select>
       <el-button style="margin-left:1em;font-size:1.2em" type="success" icon="el-icon-printer" circle @click.prevent="print" /></el-card>
