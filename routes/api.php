@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('roles/{role}/permissions', 'RoleController@permissions')->middleware('permission:' . Acl::PERMISSION_PERMISSION_MANAGE);
 });
 
-Route::group(['middleware' => 'auth:api'], function () {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('products', 'ProductController@index');
     Route::post('products', 'ProductController@store');
     Route::get('products/{product}', 'ProductController@show');
