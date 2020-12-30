@@ -79,7 +79,7 @@ class StocksTest extends TestCase
             ]
         ];
 
-        $this->put('/api/stocks', $changed_stocks);
+        $this->put('/api/stocks/', $changed_stocks);
 
         $this->assertDatabaseHas('stocks', $changed_stocks[0]);
         $this->assertDatabaseHas('stocks', $changed_stocks[1]);
@@ -122,7 +122,7 @@ class StocksTest extends TestCase
             ];
         }
 
-        $this->put('/api/stocks' , $attributes);
+        $this->put('/api/stocks/' , $attributes);
 
         foreach ($new_stock as  $stock) {
             $this->assertDatabaseHas('stocks', $stock);
@@ -156,7 +156,7 @@ class StocksTest extends TestCase
             ]
         ];
 
-        $this->put('/api/stocks', $changed_stocks);
+        $this->put('/api/stocks/', $changed_stocks);
 
         $changed_stocks[1]['quantity'] = $stock2->quantity;
         $this->assertDatabaseMissing('stocks', $changed_stocks[0]);
