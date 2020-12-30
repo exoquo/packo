@@ -28,8 +28,13 @@ class Resource {
     });
   }
   update(id, resource) {
+    let url = '/' + this.uri;
+    if (id !== '') {
+      url += '/' + id;
+    }
+
     return request({
-      url: '/' + this.uri + '/' + id,
+      url: url,
       method: 'put',
       data: resource,
     });
