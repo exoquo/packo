@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('stocks', 'StockController@index');
     Route::post('stocks', 'StockController@store');
-    Route::put('stocks', 'StockController@update');
-    Route::put('stocks/{stock}', 'StockController@update');
+    Route::put('stocks/', 'StockController@update');
+    Route::put('stocks/{stock}s', 'StockController@update');
 
 });
