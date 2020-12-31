@@ -22,7 +22,6 @@
     <link rel="manifest" href="/favicon/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="theme-color" content="#ffffff">
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet" />
 </head>
