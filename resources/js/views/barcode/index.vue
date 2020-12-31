@@ -77,7 +77,10 @@ export default {
   methods: {
     async fetchProducts(){
       const data = await productResource.list();
-      this.products = data;
+
+      this.products = data.filter(function(product) {
+        return product.barcode !== '' && product.label_text !== '';
+      });
       this.selected = this.$route.params.id | 1;
     },
     print(){
