@@ -51,7 +51,7 @@ export default {
   },
   watch: {
     selected: function(id) {
-      var product = this.products[id - 1];
+      var product = this.products[id];
       this.barcode = product.barcode;
       this.text = product.label_text.replace('INOXSIGN ', '');
       const design = product.label_text.replace('INOXSIGN ', '').split('.');
