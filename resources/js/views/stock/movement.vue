@@ -177,18 +177,19 @@ export default {
     },
     addOrUpdateItem(){
       const item = this.items.find(item => item.barcode === this.barcode);
-      const barcode = this.barcode;
+      // const barcode = this.barcode;
       const qty = this.direction ? 1 : -1;
       if (item) {
         item.qty = item.qty + qty;
+        (new Audio('/sounds/add.mp3')).play();
       } else {
         productResource.get(this.barcode)
           .then(product => this.addProduct(product, qty))
+          .then(() => {
+            (new Audio('/sounds/add.mp3')).play();
+          })
           .catch(() => {
-            this.items.push({
-              barcode: barcode,
-              qty: qty,
-            });
+            (new Audio('/sounds/error.mp3')).play();
           });
       }
     },

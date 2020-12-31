@@ -74,11 +74,7 @@ class ProductController extends Controller
      */
     public function barcode($barcode)
     {
-        return Product::firstOrCreate(
-            ['barcode'=> $barcode],
-            [   'name' => 'Neuer Barcode ohne Produkt',
-                'barcode'=> $barcode]
-        )->toJson();
+        return Product::where('barcode', '=', $barcode)->firstOrFail()->toJson();
     }
 
     /**
