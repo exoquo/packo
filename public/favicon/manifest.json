@@ -1,5 +1,8 @@
 {
  "name": "App",
+ "short_name": "Lager",
+ "name": "Lager: Ist es lieferbar?",
+ "description": "Inventar Informations System",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",
@@ -37,5 +40,10 @@
    "type": "image\/png",
    "density": "4.0"
   }
- ]
+ ],
+ "start_url": "/",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#333333"
 }
