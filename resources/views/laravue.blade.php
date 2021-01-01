@@ -34,5 +34,14 @@
     <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('js/sw.js').then(function(registration) {
+            console.log('[serviceWorker]: registration successful with scope: ', registration.scope)
+      }).catch(function(err) {
+            console.log('[serviceWorker] registration failed', err)
+      })
+    }
+      </script>
 </body>
 </html>
